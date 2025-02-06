@@ -1,0 +1,140 @@
+x_98888246@codeeditor:~ (us-ashburn-1)$ cd containerization-topics/
+x_98888246@codeeditor:containerization-topics (us-ashburn-1)$ cd building-docker-image/
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker images
+REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE
+hello-world                                         latest              f1f77a0f96b7        2 weeks ago         5.2kB
+nginx                                               latest              0dff3f9967e3        2 months ago        197MB
+iad.ocir.io/ocuocitrng18/oci-purush-private/nginx   latest              0dff3f9967e3        2 months ago        197MB
+busybox                                             latest              fc0179a204e2        4 months ago        4.04MB
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker build .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+Trying to pull repository docker.io/library/alpine ... 
+latest: Pulling from docker.io/library/alpine
+52f827f72350: Pull complete 
+Digest: sha256:56fa17d2a7e7f168a043a2712e63aed1f8543aeafdcee47c58dcffe38ed51099
+Status: Downloaded newer image for alpine:latest
+ ---> 7ad00e65ee25
+Step 2/3 : RUN apk add --update redis
+ ---> Running in dd4ea764b937
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/main/aarch64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/aarch64/APKINDEX.tar.gz
+(1/1) Installing redis (7.2.7-r0)
+Executing redis-7.2.7-r0.pre-install
+Executing redis-7.2.7-r0.post-install
+Executing busybox-1.37.0-r9.trigger
+OK: 11 MiB in 16 packages
+Removing intermediate container dd4ea764b937
+ ---> 5d55b7f89ff2
+Step 3/3 : CMD ["redis-server"]
+ ---> Running in 088474f0ef1b
+Removing intermediate container 088474f0ef1b
+ ---> 82d3a73a1e94
+Successfully built 82d3a73a1e94
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker build .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> 7ad00e65ee25
+Step 2/3 : RUN apk add --update redis
+ ---> Using cache
+ ---> 5d55b7f89ff2
+Step 3/3 : CMD ["redis-server"]
+ ---> Using cache
+ ---> 82d3a73a1e94
+Successfully built 82d3a73a1e94
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker images
+REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE
+<none>                                              <none>              82d3a73a1e94        43 seconds ago      14.3MB
+hello-world                                         latest              f1f77a0f96b7        2 weeks ago         5.2kB
+alpine                                              latest              7ad00e65ee25        4 weeks ago         8.17MB
+nginx                                               latest              0dff3f9967e3        2 months ago        197MB
+iad.ocir.io/ocuocitrng18/oci-purush-private/nginx   latest              0dff3f9967e3        2 months ago        197MB
+busybox                                             latest              fc0179a204e2        4 months ago        4.04MB
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker rmi 82d3
+Deleted: sha256:82d3a73a1e94819d9c43d9f3bd586514ecb7cc3b6e1798a527a2c26c1793d52a
+Deleted: sha256:5d55b7f89ff20f51519d201a3d42633fae2974b2edc7f24aae8930c69b240d97
+Deleted: sha256:70def0fb6d700cc443c7a03975edaf34824197f5b3d93c5b76458174564b1cf4
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker images
+REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE
+hello-world                                         latest              f1f77a0f96b7        2 weeks ago         5.2kB
+alpine                                              latest              7ad00e65ee25        4 weeks ago         8.17MB
+nginx                                               latest              0dff3f9967e3        2 months ago        197MB
+iad.ocir.io/ocuocitrng18/oci-purush-private/nginx   latest              0dff3f9967e3        2 months ago        197MB
+busybox                                             latest              fc0179a204e2        4 months ago        4.04MB
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker build -t oci-test/redis:latest .
+Sending build context to Docker daemon  2.048kB
+Step 1/3 : FROM alpine
+ ---> 7ad00e65ee25
+Step 2/3 : RUN apk add --update redis
+ ---> Running in 41e73c1f4f11
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/main/aarch64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/aarch64/APKINDEX.tar.gz
+(1/1) Installing redis (7.2.7-r0)
+Executing redis-7.2.7-r0.pre-install
+Executing redis-7.2.7-r0.post-install
+Executing busybox-1.37.0-r9.trigger
+OK: 11 MiB in 16 packages
+Removing intermediate container 41e73c1f4f11
+ ---> 13055e7c88a8
+Step 3/3 : CMD ["redis-server"]
+ ---> Running in 3db385f4d424
+Removing intermediate container 3db385f4d424
+ ---> 0eb270bf21ff
+Successfully built 0eb270bf21ff
+Successfully tagged oci-test/redis:latest
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker images
+REPOSITORY                                          TAG                 IMAGE ID            CREATED             SIZE
+oci-test/redis                                      latest              0eb270bf21ff        6 seconds ago       14.3MB
+hello-world                                         latest              f1f77a0f96b7        2 weeks ago         5.2kB
+alpine                                              latest              7ad00e65ee25        4 weeks ago         8.17MB
+nginx                                               latest              0dff3f9967e3        2 months ago        197MB
+iad.ocir.io/ocuocitrng18/oci-purush-private/nginx   latest              0dff3f9967e3        2 months ago        197MB
+busybox                                             latest              fc0179a204e2        4 months ago        4.04MB
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker run oci-test/redis
+1:C 06 Feb 2025 11:46:53.380 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 06 Feb 2025 11:46:53.382 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 06 Feb 2025 11:46:53.382 * Redis version=7.2.7, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 06 Feb 2025 11:46:53.382 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1:M 06 Feb 2025 11:46:53.383 * monotonic clock: POSIX clock_gettime
+1:M 06 Feb 2025 11:46:53.384 * Running mode=standalone, port=6379.
+1:M 06 Feb 2025 11:46:53.384 * Server initialized
+1:M 06 Feb 2025 11:46:53.385 * Ready to accept connections tcp
+1:signal-handler (1738842460) Received SIGTERM scheduling shutdown...
+1:M 06 Feb 2025 11:47:40.986 * User requested shutdown...
+1:M 06 Feb 2025 11:47:40.986 * Saving the final RDB snapshot before exiting.
+1:M 06 Feb 2025 11:47:40.991 * DB saved on disk
+1:M 06 Feb 2025 11:47:40.991 # Redis is now ready to exit, bye bye...
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$ docker build -t oci-test/redis:latest .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM alpine
+ ---> 7ad00e65ee25
+Step 2/4 : RUN apk add --update redis
+ ---> Using cache
+ ---> 13055e7c88a8
+Step 3/4 : RUN apk add --update gcc
+ ---> Running in 0bea8d980a2b
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/main/aarch64/APKINDEX.tar.gz
+fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/aarch64/APKINDEX.tar.gz
+(1/12) Installing libgcc (14.2.0-r4)
+(2/12) Installing jansson (2.14-r4)
+(3/12) Installing libstdc++ (14.2.0-r4)
+(4/12) Installing zstd-libs (1.5.6-r2)
+(5/12) Installing binutils (2.43.1-r1)
+(6/12) Installing libgomp (14.2.0-r4)
+(7/12) Installing libatomic (14.2.0-r4)
+(8/12) Installing gmp (6.3.0-r2)
+(9/12) Installing isl26 (0.26-r1)
+(10/12) Installing mpfr4 (4.2.1-r0)
+(11/12) Installing mpc1 (1.3.1-r1)
+(12/12) Installing gcc (14.2.0-r4)
+Executing busybox-1.37.0-r9.trigger
+OK: 154 MiB in 28 packages
+Removing intermediate container 0bea8d980a2b
+ ---> d9abca14bb79
+Step 4/4 : CMD ["redis-server"]
+ ---> Running in 2d18b80886e6
+Removing intermediate container 2d18b80886e6
+ ---> 7920fb5e33ce
+Successfully built 7920fb5e33ce
+Successfully tagged oci-test/redis:latest
+x_98888246@codeeditor:building-docker-image (us-ashburn-1)$
