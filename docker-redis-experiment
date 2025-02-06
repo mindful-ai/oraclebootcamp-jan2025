@@ -1,0 +1,49 @@
+Terminal 1
+
+C:\Users\mindf>docker run redis
+1:C 06 Feb 2025 10:12:57.028 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 06 Feb 2025 10:12:57.028 * Redis version=7.4.1, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 06 Feb 2025 10:12:57.028 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1:M 06 Feb 2025 10:12:57.029 * monotonic clock: POSIX clock_gettime
+1:M 06 Feb 2025 10:12:57.032 * Running mode=standalone, port=6379.
+1:M 06 Feb 2025 10:12:57.032 * Server initialized
+1:M 06 Feb 2025 10:12:57.033 * Ready to accept connections tcp
+
+
+Terminal 2
+
+
+PS C:\Users\mindf> docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS      NAMES
+c8792b56b9ac   redis     "docker-entrypoint.s…"   33 seconds ago   Up 32 seconds   6379/tcp   great_nobel
+PS C:\Users\mindf> docker exec -it c8792b56b9ac redis-cli
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> set key 78
+OK
+127.0.0.1:6379> get key
+"78"
+127.0.0.1:6379> exit
+PS C:\Users\mindf> docker exec -it c8792b56b9ac sh
+# ls
+# ls -l
+total 0
+# mkdir test
+# ls
+test
+# ls- l
+sh: 5: ls-: not found
+# ls -l
+total 4
+drwxr-xr-x 2 root root 4096 Feb  6 10:15 test
+# redis-cli
+127.0.0.1:6379> ping
+PONG
+127.0.0.1:6379> exit
+# exit
+PS C:\Users\mindf> docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS      NAMES
+c8792b56b9ac   redis     "docker-entrypoint.s…"   5 minutes ago   Up 5 minutes   6379/tcp   great_nobel
+PS C:\Users\mindf> docker kill c8792b56b9ac
+c8792b56b9ac
+
