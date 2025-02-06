@@ -1,0 +1,47 @@
+--------------------------------------------------------------------------------------------------------
+Lab 03: The docker run command
+--------------------------------------------------------------------------------------------------------
+
+Part 1:
+-------
+Issuing the basic docker run command
+docker run hello-world
+
+Analyse the console output
+
+docker run hello-world
+
+Analyse again!
+
+docker run --help -> for help on a specific command
+
+docker images -a -> lists all the images currently present in the repository
+
+
+
+
+Part 2: Override Features
+-------
+docker run busybox echo hi there!
+docker run busybox ls -l
+docker run busybox whoami
+docker run busybox top -> shows CPU utilization summary
+Note: Everytime you "run" a new busybox (container) is created
+
+Will this work? Justify
+docker run hello-world echo hi there!
+docker run hello-world ls
+
+Part 3: List running containers
+-------
+
+docker ps
+docker run busybox echo
+docker ps -> doesn't list busybox container because echo will be completed quickly
+
+docker run busybox ping google.com
+docker ps -> Observe various things listed
+
+docker ps -a -> list of all containers ever created
+
+docker info -> give the system wide information

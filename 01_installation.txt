@@ -1,0 +1,82 @@
+--------------------------------------------------------------------------------------------------------
+Lab 01: Discussion on running postgres on a local machine using regular and container approach
+--------------------------------------------------------------------------------------------------------
+
+Download and install:
+---------------------
+https://www.postgresql.org/download/windows/
+
+Container approach:
+-------------------
+docker pull postgres:latest
+docker ps -> check for the container
+docker exec -it <name> psql -U postgres
+
+--------------------------------------------------------------------------------------------------------
+Lab 02: Installation of Docker on Windows
+--------------------------------------------------------------------------------------------------------
+
+Part 1:
+-------
+Installation of WSL:
+
+Step 1: Enable WSL
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+Step 2: Check requirements
+For x64 systems: Version 1903 or later, with Build 18362 or later.
+For ARM64 systems: Version 2004 or later, with Build 19041 or later.
+
+Step 3: Enable Virtual Machine feature
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+Restart your machine to complete the WSL install and update to WSL 2.
+
+Step 4: Download the Linux Kernel update package
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+install this package
+
+Step 5: Set WSL 2 as your default version
+wsl --set-default-version 2
+
+Step 6: Install Ubuntu (or any distribution of your choice)
+https://aka.ms/wslstore
+Search Ubuntu and install
+Restart the machine
+
+Part 2:
+-------
+Visit docker.com and sign-up
+Note the Docker ID and do not forget it 
+
+Part 3:
+-------
+Download and install Docker desktop
+
+Part 4:
+-------
+In the Docker Desktop, 
+Settings -> General -> Use the WSL based engine
+Settings -> Resources -> Enable your WSL2 distro and Apply & Restart
+
+Part 5:
+-------
+Testing the installation and integration
+Open your WSL2 app (Ubuntu)
+Issue the command: docker, docker version
+
+Part 6:
+-------
+To test a sample,
+Pull postgres sql from the docker desktop
+Check if it is downloaded to the cache using the docker ps command
+
+Issue: docker exec -it <name> psql -U postgres
+\l on postgres prompt to list databases
+
+Part 7:
+-------
+Activate the terminal in Visual Studio Code
+
+Complete Reference:
+-------------------
+https://docs.docker.com/desktop/windows/wsl/
