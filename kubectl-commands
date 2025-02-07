@@ -41,5 +41,31 @@ kubectl delete deploy deploy-user01 -n ns-user01
 
 kubectl delete svc svc-user01 -n ns-user01
 
+------------------------------------------------------------------------------------------------------------
+Kubernetes Web Application Deployment:
+------------------------------------------------------------------------------------------------------------
+
+You will need to clone this repository:
+https://github.com/ou-developers/docker-helloworld-demo.git
+
+Optionally you can test it:
+docker pull mahidocker2018/helloworld:v1
+docker run -d -p 80:80/tcp "mahidocker2018/helloworld:v1"
+
+Create a user secret:
+kubectl create secret docker-registry ocir-secret-user01 --docker-server=iad.ocir.io --docker-username='ocuocictrng18/98888246-lab.user01' --docker-password='XXXXXXXXXXXh__]W7e' --docker-email='98888246-lab.user01@oracle.com' -n ns-user01
+
+kubectl get secrets -n ns-user01
+
+kubectl create -f HelloWorld-lb.yaml
+
+curl 129.213.69.223:32043
+
+kubectl delete -f HelloWorld-lb.yaml -n ns-user01
+
+kubectl get services -n ns-user01
+
+
+
 kubectl get all -n ns-user01
 
