@@ -1,0 +1,45 @@
+------------------------------------------------------------------------------------------------------------
+Kubernetes Reference Commands:
+------------------------------------------------------------------------------------------------------------
+Copy the command from Access Cluster and run on the Cloud Shell:
+oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.iad.aaaaaaaaih3pelg266qx36mlt3vf723uc25klmuoven5ggk22cb73jb2jkia --file $HOME/.kube/config --region us-ashburn-1 --token-version 2.0.0  --kube-endpoint PUBLIC_ENDPOINT
+
+
+kubectl get nodes
+
+kubectl create ns ns-user01
+
+kubectl cluster-info
+
+kubectl api-resources
+
+kubectl api-versions
+
+kubectl create deployment deploy-user01 --image=iad.ocir.io/ocuocictrng18/httpd:latest -n ns-user01
+
+kubectl expose deployment deploy-user01 --type=LoadBalancer --name=svc-user01 --port=80 --target-port=80 -n ns-user01
+
+kubectl get deploy -n ns-user01
+
+kubectl get pods -n ns-user-01
+
+kubectl get pods -n ns-user01
+
+kubectl get svc -n ns-user01
+
+kubectl get replicaset -n ns-user01
+
+kubectl scale --replicas=3 deployment/deploy-user01 -n ns-user01
+
+kubectl get replicaset -n ns-user01
+
+kubectl get all -n ns-user01
+
+kubectl logs pod/deploy-user01-5b445b68db-8vhth -n ns-user01
+
+kubectl delete deploy deploy-user01 -n ns-user01
+
+kubectl delete svc svc-user01 -n ns-user01
+
+kubectl get all -n ns-user01
+
